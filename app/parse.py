@@ -1,4 +1,5 @@
 import logging
+import time
 from dataclasses import dataclass, fields, astuple
 import csv
 from typing import List
@@ -55,6 +56,7 @@ def main(output_csv_path: str) -> None:
     quotes = retrieve_quotes(soup)
     page_num = 2
     while soup.select_one(".next") is not None:
+        time.sleep(1)
         logger.info(f"Current page: {page_num}")
         soup = get_soup(f"{BASE_URL}/page/{page_num}")
         quotes.extend(retrieve_quotes(soup))
